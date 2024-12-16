@@ -142,6 +142,12 @@ class OptimizerParamsWindow(ctk.CTkToplevel):
             'r': {'title': 'R', 'tooltip': 'EMA factor.', 'type': 'float'},
             'adanorm': {'title': 'AdaNorm', 'tooltip': 'Whether to use the AdaNorm variant', 'type': 'bool'},
             'adam_debias': {'title': 'Adam Debias', 'tooltip': 'Only correct the denominator to avoid inflating step sizes early in training.', 'type': 'bool'},
+            'lr': {'title': 'Learning Rate', 'tooltip': 'The learning rate.', 'type': 'float'},
+            'beta1': {'title': 'Beta1', 'tooltip': 'First coefficient used for computing running averages of gradient.', 'type': 'float'},
+            'beta2': {'title': 'Beta2', 'tooltip': 'Second coefficient used for computing running averages of gradient and its square.', 'type': 'float'},
+            'decouple': {'title': 'Decouple Weight Decay', 'tooltip': 'Whether to decouple the weight decay from the gradient.', 'type': 'bool'},
+            'eps': {'title': 'Epsilon', 'tooltip': 'Term added to the denominator to improve numerical stability.', 'type': 'float'},
+
 
         }
         # @formatter:on
@@ -176,14 +182,28 @@ class OptimizerParamsWindow(ctk.CTkToplevel):
 
     def on_optimizer_change(self, *args):
         optimizer_config = change_optimizer(self.train_config)
-        self.ui_state.get_var("optimizer").update(optimizer_config)
+        optimizer_state = self.ui_state.get_var("optimizer")
+        selected_optimizer = self.train_config.optimizer.optimizer
+        optimizer_state.update(optimizer_config)
+        for key, default_value in OPTIMIZER_DEFAULT_PARAMETERS[selected_optimizer].items():
+            if key not in optimizer_state:
+                optimizer_state[key] = default_value
+
+
 
         self.clear_dynamic_ui(self.frame)
         self.create_dynamic_ui(self.frame)
 
     def load_defaults(self, *args):
         optimizer_config = load_optimizer_defaults(self.train_config)
-        self.ui_state.get_var("optimizer").update(optimizer_config)
+        optimizer_state = self.ui_state.get_var("optimizer")
+        selected_optimizer = self.train_config.optimizer.optimizer
+        optimizer_state.update(optimizer_config)
+        for key, default_value in OPTIMIZER_DEFAULT_PARAMETERS[selected_optimizer].items():
+            if key not in optimizer_state:
+                optimizer_state[key] = default_value
+
+
 
     def on_window_close(self):
         self.destroy()

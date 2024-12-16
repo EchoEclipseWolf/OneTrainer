@@ -378,6 +378,18 @@ OPTIMIZER_DEFAULT_PARAMETERS = {
         "decoupled_decay": True,
         "fixed_decay": False,
     },
+    Optimizer.ADOPT: {
+        "lr": 1e-3,
+        "betas": (0.9, 0.9999),
+        "eps": 1e-6,
+        "weight_decay": 0.0,
+        "decouple": False,
+        "foreach": False,
+        "maximize": False,
+        "capturable": False,
+        "differentiable": False,
+        "fused": False,
+    },
     Optimizer.AIDA: {
         "beta1": 0.9,
         "beta2": 0.999,
