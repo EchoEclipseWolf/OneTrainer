@@ -1,3 +1,10 @@
+"""
+This script generates masks for images.
+
+It uses the ClipSegModel, RembgHumanModel, RembgModel, or MaskByColor to generate the masks.
+It uses the GenerateMasksArgs to parse the command line arguments.
+It is used to generate masks for images, which can then be used for inpainting.
+"""
 from util.import_util import script_imports
 
 script_imports()
@@ -13,6 +20,14 @@ import torch
 
 
 def main():
+    """
+    Generates masks for images.
+
+    Parses command line arguments using GenerateMasksArgs.
+    Initializes the specified model for generating masks.
+    Masks the folder of images using the specified model.
+    Prints an error message if there is an error while processing the image.
+    """
     args = GenerateMasksArgs.parse_args()
 
     model = None

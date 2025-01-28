@@ -1,3 +1,10 @@
+"""
+This script converts a model from one type to another.
+
+It uses the create_model_loader and create_model_saver functions to load and save models.
+It uses ConvertModelArgs to parse the command line arguments.
+It is often used after training a model, to convert it to a more usable format.
+"""
 from util.import_util import script_imports
 
 script_imports()
@@ -11,6 +18,16 @@ from modules.util.ModelNames import EmbeddingName, ModelNames
 
 
 def main():
+    """
+    Converts a model from one type to another.
+
+    Parses command line arguments using ConvertModelArgs.
+    Creates a model loader and saver based on the specified model type and training method.
+    Loads the input model and saves it to the output destination in the specified format and data type.
+
+    Raises:
+        Exception: If the model cannot be loaded due to an unknown training method.
+    """
     args = ConvertModelArgs.parse_args()
 
     model_loader = create.create_model_loader(model_type=args.model_type, training_method=args.training_method)

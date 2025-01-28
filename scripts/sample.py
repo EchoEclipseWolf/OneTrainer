@@ -1,3 +1,11 @@
+"""
+This script samples from a model.
+
+It uses the SampleArgs to parse the command line arguments.
+It uses create_model_loader to load the model, and create_model_setup to set it up.
+It then uses create_model_sampler to sample from the model.
+This script can be used independently, or can be used in conjunction with other scripts, like train.py.
+"""
 from util.import_util import script_imports
 
 script_imports()
@@ -12,6 +20,15 @@ from modules.util.torch_util import default_device
 
 
 def main():
+    """
+    Samples from a model.
+
+    Parses command line arguments using SampleArgs.
+    Creates a model loader and setup based on the specified model type.
+    Loads the base model and sets it to evaluation mode.
+    Creates a model sampler based on the model type.
+    Samples the model and saves the output to the specified destination.
+    """
     args = SampleArgs.parse_args()
     device = default_device
 

@@ -1,3 +1,10 @@
+"""
+This script generates captions for images.
+
+It uses the Blip2Model, BlipModel, or WDModel to generate the captions.
+It uses the GenerateCaptionsArgs to parse the command line arguments.
+It is used to generate captions for images, which can then be used for training.
+"""
 from util.import_util import script_imports
 
 script_imports()
@@ -12,6 +19,14 @@ import torch
 
 
 def main():
+    """
+    Generates captions for images.
+
+    Parses command line arguments using GenerateCaptionsArgs.
+    Initializes the specified model for generating captions.
+    Captions the folder of images using the specified model.
+    Prints an error message if there is an error while processing the image.
+    """
     args = GenerateCaptionsArgs.parse_args()
 
     model = None
